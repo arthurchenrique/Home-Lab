@@ -43,7 +43,11 @@ and I don't open any ports on my router.
 3. Turned off Wi-Fi on my phone (cellular only)
 4. Opened Jellyfin using the desktop's Tailscale address, and it loaded
 
-**What I learned:** I learned how specific devices work on my network, such as that devices get their own private 100.x address and that the traffic between them is encrypted
+<img src="images/jellyfin-over-tailscale.png" alt="Jellyfin loaded on my phone over Tailscale" width="300">
+
+**What I learned:** Each device gets its own private 100.x address, and
+traffic between my devices is encrypted. That let me reach Jellyfin from
+outside my home without opening any ports on my router.
 
 ## What I'm learning
 -
