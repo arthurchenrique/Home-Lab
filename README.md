@@ -19,8 +19,28 @@ graph TD
 ## Services
 
 ### Pi-hole
-*(coming soon)*
+Pi-hole is a DNS server that blocks ads and trackers for every device on
+my network. It runs on a Raspberry Pi Zero 2 W, and my eero router is
+set to use it for all DNS lookups.
 
+**How it works:** when a device visits a site, it first asks a DNS server
+to turn the name into an address. Pi-hole checks each name against
+blocklists (about 78,000 domains). Blocked names get a dead-end answer
+(`0.0.0.0`), and everything else is forwarded to a normal DNS server.
+
+**How I tested it:** I looked up a known ad domain twice, once through
+Pi-hole and once directly through Cloudflare (1.1.1.1):
+
+    nslookup doubleclick.net
+    nslookup doubleclick.net 1.1.1.1
+
+Pi-hole returned `0.0.0.0` (blocked). Cloudflare returned a real address.
+
+<img src="images/pihole-nslookup.png" alt="nslookup through Pi-hole vs Cloudflare" width="600">
+
+**What I learned:** DNS is the first step of almost every connection, so
+a DNS server can see and filter traffic for the whole network. Some
+devices and browsers bypass it with their own DNS settings.
 ### Jellyfin
 Jellyfin is a self-hosted media server. I run it on my desktop to stream
 my own movies and shows to my other devices.
