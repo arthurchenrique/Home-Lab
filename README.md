@@ -69,5 +69,19 @@ and I don't open any ports on my router.
 traffic between my devices is encrypted. That let me reach Jellyfin from
 outside my home without opening any ports on my router.
 
+### Wireshark: DNS capture
+I captured a DNS lookup on my desktop to see what Pi-hole's answers
+look like on the wire. I filtered the capture to a single domain,
+`doubleclick.net`.
+
+- DNS queries go over **UDP port 53** from my desktop to the Pi-hole
+- My desktop picks a random source port for each lookup
+- Each response repeats the query's **transaction ID**, which is how
+  the desktop matches answers to questions
+- The `A` (IPv4) lookup was answered with `0.0.0.0` and the `AAAA`
+  (IPv6) lookup with `::`, so the domain is blocked for both
+
+<img src="images/wireshark-dns.png" alt="Wireshark DNS capture of a blocked domain" width="700">
+
 ## What I'm learning
 -
