@@ -83,5 +83,30 @@ look like on the wire. I filtered the capture to a single domain,
 
 <img src="images/wireshark-dns.png" alt="Wireshark DNS capture of a blocked domain" width="700">
 
+## Wireshark: JChat traffic capture
+I captured traffic from JChat, a chat app I wrote in Java, to see what
+it looks like on the network. I ran the server and two clients on my
+desktop and captured on the loopback adapter, filtering to the chat
+server's port (3000).
+
+Using Wireshark's **Follow TCP Stream**, the whole conversation shows up
+as readable text: usernames, room choice, messages, and server replies.
+
+**What this shows:**
+- JChat sends everything in **plaintext**. Anyone who can see the
+  traffic can read it, which is why real chat apps use TLS
+- There's no authentication. The server accepts whatever username a
+  client types
+- Each client connects over **TCP**, so the capture also shows the
+  connection setup (SYN, SYN-ACK, ACK) before any messages are sent
+
+All messages in the screenshot are test messages.
+
+<img src="images/jchat-plaintext.png" alt="Wireshark Follow TCP Stream of a JChat conversation in plaintext" width="700">
+
+**Possible fix:** wrap the sockets in TLS (Java's `SSLSocket` /
+`SSLServerSocket`), which would encrypt the stream.
+
+
 ## What I'm learning
 -
